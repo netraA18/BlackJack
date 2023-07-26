@@ -11,7 +11,7 @@ deck = [(rank, "of", suit) for rank in ranks for suit in suits]
 random.shuffle(deck)
 
 players = str(input("How many players? "))
-total = int(players) + 1
+total = int(players) + 1 #Total players including the dealer
 
 
 def ask_bet():
@@ -19,7 +19,6 @@ def ask_bet():
     numb_player = 1
     while numb_player <= int(players):
         bet_amount = str(input("Player " + str(numb_player) + ", " + "how much do you want to bet?: "))
-        # converts a number or strings that contain numbers to decimals
         bet_amount = float(bet_amount)
         total_bet.append(bet_amount)
         numb_player += 1
@@ -31,38 +30,39 @@ def ask_bet():
 ask_bet()
 
 
-
-
 def game():
     i = 0
     numb_player = 1
     store_results = []
     store_dealer = []
     while i < total: 
-        deck_card = random.choice(deck)
-        deck_card2 = random.choice(deck)
+        deck_card = random.choice(deck) #for Deck 1
+        deck_card2 = random.choice(deck) #for Deck 2
         get_numb = (deck_card)[0]
         get_numb2 = (deck_card2)[0]
         if i == 0:
             print("Dealer's 1st card: " + str(deck_card) + " Second Card: " + " face down ")
             second_cardd = (deck_card2)[0]
             if "Jack" in deck_card or "Queen" in deck_card or "King" in deck_card:
-                # print("10")
                 store_dealer.append(10)
+                
             if "Ace" in deck_card:
                 ask_value = str(input("1 or 11?"))
-                # print(ask_value)
                 store_dealer.append(ask_value)
+                
             if "Jack" not in deck_card and "Queen" not in deck_card and "King" not in deck_card and "Ace" not in deck_card:
-                # print(get_numb)
                 store_dealer.append(get_numb)
+                
             if "Jack" in deck_card2 or "Queen" in deck_card2 or "King" in deck_card2:
                 store_dealer.append(10)
+                
             if "Ace" in deck_card2:
                 ask_value = str(input("1 or 11?"))
                 store_dealer.append(ask_value)
+                
             if "Jack" not in deck_card2 and "Queen" not in deck_card2 and "King" not in deck_card2 and "Ace" not in deck_card2:
                 store_dealer.append(get_numb2)
+                
             print(store_dealer[0])
                      
         elif i > 0:
@@ -78,6 +78,7 @@ def game():
                 if jqk_in_card1 and jqk_in_card2:
                     print("20")
                     store_results.append(20)
+                    
             if ace_card1 or ace_card2:
                 if ace_card1 and ace_card2:
                     ask_value = float(input("1 or 11? "))
@@ -85,13 +86,16 @@ def game():
                     result = ask_value + ask_value2
                     store_results.append(result)
                     print(result)
+                    
                 else:
                     ask_value3 = str(input("1 or 11? "))
+                    
             if jqk_not_card1 or jqk_not_card2:
                 if jqk_not_card1 and jqk_not_card2:
                     result = float(get_numb) + float(get_numb2)
                     print(int(result))
                     store_results.append(result)
+                    
             if jqk_in_card1 and ace_card2 or jqk_in_card2 and ace_card1:
                 get_value = float(ask_value3)
                 result = get_value + float(10)
@@ -102,6 +106,7 @@ def game():
                 get_value = float(ask_value3)
                 result = float(get_numb) + get_value
                 print(int(result))
+                
                 store_results.append(result)
             elif jqk_not_card2 and ace_card1:
                 get_value = float(ask_value3)
@@ -113,6 +118,7 @@ def game():
                 result = float(10) + float(get_numb2)
                 print(int(result))
                 store_results.append(result)
+                
             elif jqk_in_card2 and jqk_not_card1:
                 result = float(10) + float(get_numb)
                 print(int(result))
@@ -138,11 +144,13 @@ def game():
                 results = float(access) + store_results[numb_player - 1]
                 print(int(results))
                 store_final.append(results)
+                
             if ace_card1:
                 ask_ace = str(input("1 or 11? "))
                 results = float(ask_ace) + store_results[numb_player - 1]
                 print(int(results))  
                 store_final.append(results) 
+                
             if not(jqk_in_card1) and not(ace_card1):
                 get_numbber = (deck_card)[0]
                 results = float(get_numbber) + store_results[numb_player - 1]
